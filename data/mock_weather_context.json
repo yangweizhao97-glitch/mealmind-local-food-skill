@@ -1,0 +1,15 @@
+{
+  "source": "mock_weather",
+  "data_freshness": "demo_static",
+  "condition": "light_rain",
+  "temperature_c": 12,
+  "feels_like_c": 10,
+  "wind_level": 3,
+  "air_quality": "good",
+  "meal_impact": [
+    "rain_reduce_walking",
+    "cold_prefer_hot_meal",
+    "avoid_iced_drinks_at_dinner"
+  ],
+  "summary": "小雨，体感偏冷，晚餐优先近距离热食和低糖热饮。"
+}

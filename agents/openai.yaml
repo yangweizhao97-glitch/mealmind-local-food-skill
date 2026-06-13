@@ -1,0 +1,6 @@
+interface:
+  display_name: "MealMind 本地饮食决策"
+  short_description: "根据本地数据推荐今天具体吃喝什么"
+  default_prompt: "Use $mealmind-local-food-skill to recommend a concrete local meal and drink plan for today."
+policy:
+  allow_implicit_invocation: true

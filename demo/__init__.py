@@ -1,0 +1,1 @@
+"""MealMind demo package."""

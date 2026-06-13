@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MealMind Meal Decision",
+  "type": "object",
+  "required": [
+    "user_state_summary",
+    "location_summary",
+    "weather_context",
+    "evidence_summary",
+    "restaurant_intelligence",
+    "supermarket_value_context",
+    "top_recommendation",
+    "best_value_option",
+    "fat_loss_option",
+    "premium_option",
+    "budget_option",
+    "drink_recommendation",
+    "not_recommended_today",
+    "shopping_or_ordering_action",
+    "safety_note"
+  ],
+  "properties": {
+    "user_state_summary": {"type": "object"},
+    "location_summary": {"type": "object"},
+    "weather_context": {"type": "object"},
+    "evidence_summary": {"type": "object"},
+    "restaurant_intelligence": {"type": "object"},
+    "supermarket_value_context": {"type": "object"},
+    "top_recommendation": {"type": "object"},
+    "best_value_option": {"type": "object"},
+    "fat_loss_option": {"type": "object"},
+    "premium_option": {"type": "object"},
+    "budget_option": {"type": "object"},
+    "drink_recommendation": {"type": "object"},
+    "not_recommended_today": {"type": "array"},
+    "shopping_or_ordering_action": {"type": "object"},
+    "safety_note": {"type": "string"}
+  },
+  "additionalProperties": false
+}

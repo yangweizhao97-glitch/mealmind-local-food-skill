@@ -1,0 +1,6 @@
+__pycache__/
+.pytest_cache/
+cache/
+.env
+profiles/local_user_profile.json
+data/local_today_status.json

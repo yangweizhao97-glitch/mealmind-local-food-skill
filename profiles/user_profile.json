@@ -1,0 +1,34 @@
+{
+  "user_id": "example_user",
+  "home_location": {
+    "address": "杭州市西湖区某高校公寓",
+    "city": "杭州市",
+    "latitude": null,
+    "longitude": null,
+    "search_radius_m": 1000
+  },
+  "body_profile": {
+    "height_cm": 170,
+    "weight_kg": 65,
+    "body_fat_percentage": null,
+    "age": 22,
+    "gender": "unspecified"
+  },
+  "diet_preferences": {
+    "main_goal": "balanced_energy",
+    "likes": ["鸡蛋", "米饭", "豆浆", "玉米"],
+    "dislikes": [],
+    "allergies": [],
+    "spicy_level": 1
+  },
+  "budget_profile": {
+    "normal_meal_budget_cny": 30,
+    "premium_meal_budget_cny": 60,
+    "budget_saving_meal_budget_cny": 20
+  },
+  "lifestyle": {
+    "can_cook": false,
+    "preferred_food_types": ["热食", "高蛋白", "方便", "性价比高"],
+    "max_walk_time_minutes": 12
+  }
+}

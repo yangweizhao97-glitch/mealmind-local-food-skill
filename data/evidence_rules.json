@@ -1,0 +1,112 @@
+{
+  "source_type": "curated_evidence_kb",
+  "rules": [
+    {
+      "id": "who_healthy_diet",
+      "title": "WHO healthy diet principles",
+      "source": "World Health Organization",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+      "applies_to": ["general_health", "fat_loss", "maintenance"],
+      "recommendation": "优先蔬菜、水果、豆类、坚果、全谷物；限制高盐、高糖、不健康脂肪和高度加工食品。"
+    },
+    {
+      "id": "smiles_trial",
+      "title": "Dietary improvement and depressive symptoms",
+      "source": "BMC Medicine / PubMed",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28137247/",
+      "applies_to": ["low_mood", "stress", "diet_quality"],
+      "recommendation": "心情和压力相关推荐应提高整体饮食质量，不把甜食或含糖饮品作为正餐解决方案。"
+    },
+    {
+      "id": "mediterranean_diet_meta",
+      "title": "Mediterranean diet and depression evidence",
+      "source": "PubMed",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38219230/",
+      "applies_to": ["low_mood", "long_term_health", "balanced_meal"],
+      "recommendation": "优先接近地中海式结构的餐食：蔬菜、豆类、全谷物、鱼/禽肉/蛋、坚果或健康脂肪。"
+    },
+    {
+      "id": "food_and_mood_review",
+      "title": "Food and mood review",
+      "source": "BMJ / PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7322666/",
+      "applies_to": ["mood", "stress", "safety"],
+      "recommendation": "可以讨论饮食质量与心情的关系，但不能声称单顿饭治疗心理疾病。"
+    },
+    {
+      "id": "balanced_plate_pattern",
+      "title": "Healthy Eating Plate pattern",
+      "source": "Harvard T.H. Chan School of Public Health",
+      "url": "https://nutritionsource.hsph.harvard.edu/healthy-eating-plate/",
+      "applies_to": ["balanced_meal", "satiety", "meal_structure"],
+      "recommendation": "正餐优先形成蛋白质、蔬菜或水果、适量主食和低糖饮品的组合，而不是只喝饮料或只吃甜食。"
+    },
+    {
+      "id": "issn_nutrient_timing",
+      "title": "ISSN nutrient timing position stand",
+      "source": "Journal of the International Society of Sports Nutrition / PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5596471/",
+      "applies_to": ["post_exercise", "high_energy", "muscle_gain"],
+      "recommendation": "运动后或高消耗日，蛋白质加适量碳水比单纯低热量饮食更适合恢复和饱腹。"
+    },
+    {
+      "id": "fda_healthy_pattern",
+      "title": "FDA healthy food pattern guidance",
+      "source": "U.S. Food and Drug Administration",
+      "url": "https://www.fda.gov/consumers/consumer-updates/fresh-take-what-healthy-means-food-packages",
+      "applies_to": ["lower_sugar", "lower_sodium", "processed_food"],
+      "recommendation": "更健康的选择通常来自蔬菜、水果、全谷物、乳制品或蛋白质食物，并限制饱和脂肪、钠和添加糖。"
+    }
+  ],
+  "explanation_rules": [
+    {
+      "id": "protein_satiety",
+      "trigger_tags": ["protein"],
+      "text": "含蛋白质，饥饿度高时更有利于饱腹和稳定能量。"
+    },
+    {
+      "id": "hot_meal_for_tired_rainy_day",
+      "trigger_tags": ["hot_meal"],
+      "trigger_weather_impacts": ["rain_reduce_walking", "cold_prefer_hot_meal"],
+      "text": "今天有雨或体感偏冷，热食比冰饮/冷食更适合当正餐。"
+    },
+    {
+      "id": "carb_when_hungry",
+      "trigger_tags": ["carb", "rice"],
+      "min_hunger_level": 7,
+      "text": "你现在饥饿度高，适量主食能避免只靠低热量食物导致很快又饿。"
+    },
+    {
+      "id": "vegetable_fiber",
+      "trigger_tags": ["vegetable", "fiber"],
+      "text": "带蔬菜或纤维来源，整体饮食质量更好。"
+    },
+    {
+      "id": "low_sugar_drink",
+      "trigger_tags": ["low_sugar"],
+      "text": "饮品或搭配偏低糖，比奶茶和含糖咖啡更适合控糖和减脂目标。"
+    },
+    {
+      "id": "close_in_bad_weather",
+      "max_walk_minutes": 5,
+      "trigger_weather_impacts": ["rain_reduce_walking", "wind_reduce_walking"],
+      "text": "距离近，雨天或大风时减少来回折腾。"
+    },
+    {
+      "id": "rating_and_cost_confidence",
+      "requires_rating": true,
+      "requires_avg_cost": true,
+      "text": "高德返回了评分和人均，推荐依据比只有店名的 POI 更可靠。"
+    },
+    {
+      "id": "menu_price_uncertain",
+      "trigger_price_sources": ["amap_avg_cost_estimate", "amap_poi_no_menu_price"],
+      "text": "高德没有返回完整单品菜单价，价格需要以到店菜单为准。"
+    }
+  ],
+  "runtime_policy": {
+    "use_as_guidance": true,
+    "do_not_make_medical_claims": true,
+    "prefer_meal_patterns_over_single_magic_foods": true
+  }
+}

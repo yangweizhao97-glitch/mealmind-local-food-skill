@@ -1,0 +1,15 @@
+{
+  "mood": "tired",
+  "hunger_level": 8,
+  "stress_level": 6,
+  "energy_level": 4,
+  "sleep_quality": "poor",
+  "work_intensity": "high",
+  "exercised_today": false,
+  "workout_type": "none",
+  "meal_type": "dinner",
+  "today_goal": "fat_loss_but_not_hungry",
+  "want_better_food": false,
+  "want_save_money": false,
+  "comfort_food_need": 6
+}
