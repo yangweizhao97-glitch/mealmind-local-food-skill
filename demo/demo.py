@@ -26,6 +26,7 @@ except ImportError:
 
 
 ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_OUTPUT_PATH = ROOT / "outputs" / "latest_meal_decision.json"
 
 
 def _load_config(default_relative_path: str, env_name: str) -> dict:
@@ -73,7 +74,11 @@ def main() -> None:
         print(str(error))
         print("示例菜单 fallback 已移除；请提供 AMAP_WEB_SERVICE_KEY 或注入授权来源 POI。")
         return
+    output_path = Path(os.getenv("MEALMIND_OUTPUT_JSON_PATH", DEFAULT_OUTPUT_PATH)).expanduser()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False, indent=2))
+    print(f"\nJSON 文件已写入：{output_path}")
     print("\n--- 中文推荐总结 ---\n")
     print(summary)
 

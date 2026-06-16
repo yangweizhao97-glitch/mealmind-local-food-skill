@@ -1,0 +1,419 @@
+{
+  "user_state_summary": {
+    "meal_type": "breakfast",
+    "today_goal": "fat_loss_but_not_hungry",
+    "mood": "tired",
+    "hunger_level": 8,
+    "budget_cny": 30,
+    "time_context": {
+      "timezone": "Asia/Shanghai",
+      "china_time": "2026-06-17T08:00",
+      "meal_type_source": "china_time_auto",
+      "original_meal_type": "dinner"
+    }
+  },
+  "location_summary": {
+    "home_address": "杭州市西湖区某高校公寓",
+    "search_radius_m": 1000,
+    "nearby_place_count": 18,
+    "selected_walk_minutes": 3,
+    "place_data_source": {
+      "sources": [
+        "authorized_map_api"
+      ],
+      "is_live": true,
+      "note": "当前为授权实时地图数据。"
+    }
+  },
+  "weather_context": {
+    "source": "authorized_amap_weather",
+    "data_freshness": "live",
+    "province": "浙江",
+    "city": "西湖区",
+    "adcode": "330106",
+    "condition": "阴",
+    "temperature_c": 23,
+    "wind_direction": "西南",
+    "wind_level": 3,
+    "humidity": 88,
+    "report_time": "2026-06-16 23:02:32",
+    "meal_impact": [],
+    "summary": "阴，23℃，风力约 3 级，早餐按实时天气调整距离和冷热偏好。"
+  },
+  "evidence_summary": {
+    "knowledge_base": "curated_evidence_rules",
+    "used_rules": [
+      "who_healthy_diet",
+      "smiles_trial",
+      "mediterranean_diet_meta",
+      "food_and_mood_review"
+    ],
+    "principle": "优先高质量饮食结构；心情状态只调整推荐倾向，不做医疗诊断。"
+  },
+  "current_meal_decision": {
+    "time_based_question": "今天这个时间点适合吃什么作为早餐？",
+    "timezone": "Asia/Shanghai",
+    "china_time": "2026-06-17T08:00",
+    "meal_type": "breakfast",
+    "meal_type_cn": "早餐",
+    "recommended_food": "红烧肉",
+    "why_this_food_now": [
+      "现在按中国时间判断是早餐，需要匹配这一餐的饱腹和消化负担。",
+      "含蛋白质，饥饿度高时更有利于饱腹和稳定能量。",
+      "你现在饥饿度高，适量主食能避免只靠低热量食物导致很快又饿。",
+      "高德返回了评分和人均，推荐依据比只有店名的 POI 更可靠。",
+      "高德没有返回完整单品菜单价，价格需要以到店菜单为准。",
+      "天气情境：阴，23℃，风力约 3 级，早餐按实时天气调整距离和冷热偏好。"
+    ],
+    "restaurant_or_takeaway_option": {
+      "place": "宋姐之望江面馆(东山市集店)",
+      "food_to_order": "红烧肉",
+      "estimated_price_cny": "人均约 35",
+      "walk_minutes_from_home": 3,
+      "ordering_keywords": "宋姐之望江面馆(东山市集店) 红烧肉",
+      "copyable_note": "少油，不要香菜；单品价格以店内实时菜单为准。",
+      "data_note": "地点来自授权 Provider；价格以实时菜单或到店为准。"
+    },
+    "buy_ingredients_and_cook_option": {
+      "store": "联华超市(杭州东山店)",
+      "shopping_list": [
+        "鸡蛋",
+        "全麦面包或燕麦",
+        "无糖豆浆",
+        "水果"
+      ],
+      "cook_plan": "鸡蛋燕麦/全麦早餐配无糖豆浆",
+      "estimated_budget_cny": "15-30",
+      "reason": "未拿到实时单品菜价，食材清单按通用健康组合生成。 这个方案保留 红烧肉 的饱腹/蛋白质思路，适合不想外食时自己快速做一餐。"
+    },
+    "recommended_action": "go_to_store_or_restaurant",
+    "recommended_action_reason": "当前综合评分最高的是到店/附近购买方案。"
+  },
+  "restaurant_intelligence": {
+    "methodology": {
+      "distance": "离住处越近越好，雨天加权更高",
+      "rating": "高德评分越高，好吃概率越高",
+      "avg_cost": "高德人均消费只能估算预算，不等于单品价格",
+      "signature_dishes": "高德 tag 字段作为招牌菜候选",
+      "menu_price": "仅当高德返回 menu/foods/dishes 等字段时才视为单品价格"
+    },
+    "restaurants": [
+      {
+        "name": "云阿蛮云南生烫牛肉米线(三坝店)",
+        "type": "restaurant",
+        "distance_m": 1,
+        "walk_minutes_from_home": 0,
+        "walking_distance_m": 1,
+        "amap_linear_distance_m": 0,
+        "rating": 3.2,
+        "avg_cost_cny": null,
+        "signature_dishes": [],
+        "menu_items": [],
+        "menu_data_status": "amap_poi_no_full_menu",
+        "source": "authorized_map_api"
+      },
+      {
+        "name": "京者三文鱼(定山西苑店)",
+        "type": "restaurant",
+        "distance_m": 1,
+        "walk_minutes_from_home": 0,
+        "walking_distance_m": 1,
+        "amap_linear_distance_m": 0,
+        "rating": 4.1,
+        "avg_cost_cny": null,
+        "signature_dishes": [
+          "三文鱼"
+        ],
+        "menu_items": [],
+        "menu_data_status": "amap_poi_no_full_menu",
+        "source": "authorized_map_api"
+      },
+      {
+        "name": "彭浦一炸(西湖香雨桐主题酒店店)",
+        "type": "restaurant",
+        "distance_m": 1,
+        "walk_minutes_from_home": 0,
+        "walking_distance_m": 1,
+        "amap_linear_distance_m": 0,
+        "rating": 3.8,
+        "avg_cost_cny": 22.0,
+        "signature_dishes": [],
+        "menu_items": [],
+        "menu_data_status": "amap_poi_no_full_menu",
+        "source": "authorized_map_api"
+      },
+      {
+        "name": "嵊州小吃",
+        "type": "restaurant",
+        "distance_m": 167,
+        "walk_minutes_from_home": 2,
+        "walking_distance_m": null,
+        "amap_linear_distance_m": null,
+        "rating": 3.0,
+        "avg_cost_cny": 28.0,
+        "signature_dishes": [],
+        "menu_items": [],
+        "menu_data_status": "amap_poi_no_full_menu",
+        "source": "authorized_map_api"
+      },
+      {
+        "name": "香芙茗茶楼",
+        "type": "restaurant",
+        "distance_m": 202,
+        "walk_minutes_from_home": 3,
+        "walking_distance_m": null,
+        "amap_linear_distance_m": null,
+        "rating": 3.3,
+        "avg_cost_cny": null,
+        "signature_dishes": [],
+        "menu_items": [],
+        "menu_data_status": "amap_poi_no_full_menu",
+        "source": "authorized_map_api"
+      },
+      {
+        "name": "浙大附中食堂",
+        "type": "restaurant",
+        "distance_m": 215,
+        "walk_minutes_from_home": 3,
+        "walking_distance_m": null,
+        "amap_linear_distance_m": null,
+        "rating": 2.9,
+        "avg_cost_cny": null,
+        "signature_dishes": [],
+        "menu_items": [],
+        "menu_data_status": "amap_poi_no_full_menu",
+        "source": "authorized_map_api"
+      },
+      {
+        "name": "融茶馆",
+        "type": "restaurant",
+        "distance_m": 216,
+        "walk_minutes_from_home": 3,
+        "walking_distance_m": null,
+        "amap_linear_distance_m": null,
+        "rating": 4.3,
+        "avg_cost_cny": 46.0,
+        "signature_dishes": [],
+        "menu_items": [],
+        "menu_data_status": "amap_poi_no_full_menu",
+        "source": "authorized_map_api"
+      },
+      {
+        "name": "新丰小吃(浙大路分店)",
+        "type": "restaurant",
+        "distance_m": 218,
+        "walk_minutes_from_home": 3,
+        "walking_distance_m": null,
+        "amap_linear_distance_m": null,
+        "rating": 4.6,
+        "avg_cost_cny": 21.0,
+        "signature_dishes": [
+          "包子",
+          "家常炒菜",
+          "拌面",
+          "喉口馒头",
+          "杭州卷鸡",
+          "清明团子",
+          "小笼包子",
+          "牛奶",
+          "鸭血汤",
+          "虾肉馄饨",
+          "赤豆汤",
+          "黑米糕",
+          "荷包蛋面",
+          "小笼",
+          "喉口包",
+          "片儿川",
+          "面食"
+        ],
+        "menu_items": [],
+        "menu_data_status": "amap_poi_no_full_menu",
+        "source": "authorized_map_api"
+      }
+    ]
+  },
+  "supermarket_value_context": {
+    "summary": "最近的超市/便利店是 联华超市(杭州东山店)，离住处约步行 3 分钟；高德 POI 未提供具体活动和单品菜价。",
+    "stores": [
+      {
+        "name": "联华超市(杭州东山店)",
+        "type": "supermarket",
+        "distance_m": 207,
+        "walk_minutes_from_home": 3,
+        "walking_distance_m": null,
+        "amap_linear_distance_m": null,
+        "rating": 4.4,
+        "avg_cost_cny": null,
+        "source": "authorized_map_api",
+        "promotion_status": "amap_poi_no_promotion_data",
+        "menu_data_status": "amap_poi_no_full_menu"
+      },
+      {
+        "name": "多伦烟酒(西资大楼店)",
+        "type": "convenience_store",
+        "distance_m": 217,
+        "walk_minutes_from_home": 3,
+        "walking_distance_m": null,
+        "amap_linear_distance_m": null,
+        "rating": 3.5,
+        "avg_cost_cny": null,
+        "source": "authorized_map_api",
+        "promotion_status": "amap_poi_no_promotion_data",
+        "menu_data_status": "amap_poi_no_full_menu"
+      },
+      {
+        "name": "淘鲜鲜(东山农贸市场店)",
+        "type": "supermarket",
+        "distance_m": 217,
+        "walk_minutes_from_home": 3,
+        "walking_distance_m": null,
+        "amap_linear_distance_m": null,
+        "rating": 2.9,
+        "avg_cost_cny": null,
+        "source": "authorized_map_api",
+        "promotion_status": "amap_poi_no_promotion_data",
+        "menu_data_status": "amap_poi_no_full_menu"
+      },
+      {
+        "name": "东山弄农贸市场花屋",
+        "type": "supermarket",
+        "distance_m": 219,
+        "walk_minutes_from_home": 3,
+        "walking_distance_m": null,
+        "amap_linear_distance_m": null,
+        "rating": 4.0,
+        "avg_cost_cny": null,
+        "source": "authorized_map_api",
+        "promotion_status": "amap_poi_no_promotion_data",
+        "menu_data_status": "amap_poi_no_full_menu"
+      },
+      {
+        "name": "香烟便利店",
+        "type": "convenience_store",
+        "distance_m": 329,
+        "walk_minutes_from_home": 4,
+        "walking_distance_m": 329,
+        "amap_linear_distance_m": 77,
+        "rating": 3.8,
+        "avg_cost_cny": null,
+        "source": "authorized_map_api",
+        "promotion_status": "amap_poi_no_promotion_data",
+        "menu_data_status": "amap_poi_no_full_menu"
+      }
+    ],
+    "promotion_status": "amap_poi_no_promotion_data",
+    "good_value_items": []
+  },
+  "top_recommendation": {
+    "meal_name": "红烧肉",
+    "place": "宋姐之望江面馆(东山市集店)",
+    "total_score": 85,
+    "estimated_price_cny": "人均约 35",
+    "price_source": "amap_avg_cost_estimate",
+    "source_confidence": "中",
+    "place_rating": 4.5,
+    "place_avg_cost_cny": 35.0,
+    "place_distance_m": 221,
+    "place_walking_distance_m": null,
+    "place_walking_minutes": null,
+    "place_linear_distance_m": null,
+    "place_signature_dishes": [
+      "汤面",
+      "片儿川",
+      "红烧肉",
+      "猪肝"
+    ],
+    "place_menu_data_status": "amap_poi_no_full_menu",
+    "estimated_calories": "450-800 kcal",
+    "estimated_protein": "20-40 g",
+    "satiety_prediction": "3-5 hours",
+    "score_components": {
+      "goal_match": 81,
+      "nutrition_structure": 85,
+      "price_value": 80.0,
+      "distance_convenience": 100,
+      "weather_match": 70,
+      "mood_body_match": 100,
+      "taste_preference": 68,
+      "data_confidence": 100
+    },
+    "reason": "高德 POI 显示该店招牌/特色包含 红烧肉；评分 4.5，人均约 35 元。",
+    "health_and_context_reasons": [
+      "含蛋白质，饥饿度高时更有利于饱腹和稳定能量。",
+      "你现在饥饿度高，适量主食能避免只靠低热量食物导致很快又饿。",
+      "高德返回了评分和人均，推荐依据比只有店名的 POI 更可靠。",
+      "高德没有返回完整单品菜单价，价格需要以到店菜单为准。"
+    ]
+  },
+  "best_value_option": {
+    "meal_name": "杭州卷鸡",
+    "place": "新丰小吃(浙大路分店)",
+    "score": 81,
+    "estimated_price_cny": "人均约 21",
+    "reason": "高德 POI 显示该店招牌/特色包含 杭州卷鸡；评分 4.6，人均约 21 元。"
+  },
+  "fat_loss_option": {
+    "meal_name": "红烧肉",
+    "place": "宋姐之望江面馆(东山市集店)",
+    "score": 85,
+    "estimated_price_cny": "人均约 35",
+    "reason": "高德 POI 显示该店招牌/特色包含 红烧肉；评分 4.5，人均约 35 元。"
+  },
+  "premium_option": {
+    "meal_name": "融茶馆 到店热食/简餐",
+    "place": "融茶馆",
+    "score": 70,
+    "estimated_price_cny": "人均约 46",
+    "reason": "高德 POI 未返回招牌菜和完整菜单价，但返回评分 4.3、人均约 46 元；适合作为近距离热食备选。"
+  },
+  "budget_option": {
+    "meal_name": "联华超市(杭州东山店) 超市熟食/即食组合",
+    "place": "联华超市(杭州东山店)",
+    "score": 73,
+    "estimated_price_cny": "未返回单品价格",
+    "reason": "高德返回了附近超市 POI；开放 API 未返回今日菜价和活动，需以门店价签为准。"
+  },
+  "drink_recommendation": {
+    "best_drink": "暇意西餐咖啡厅 饮品",
+    "avoid_drinks": [
+      "奶茶",
+      "含糖咖啡",
+      "酒精"
+    ],
+    "reason": "今天目标偏健康和控糖，优先低糖饮品。"
+  },
+  "not_recommended_today": [
+    {
+      "name": "炸鸡奶茶套餐",
+      "score": 42,
+      "reason": "价格不低、热量高、糖分高，今天减脂目标下不优先。"
+    },
+    {
+      "name": "暇意西餐咖啡厅 饮品",
+      "score": 55,
+      "reason": "含糖或满足感偏饮品化，今天不适合作为主推荐。"
+    }
+  ],
+  "shopping_or_ordering_action": {
+    "shopping_list": [
+      "鸡蛋",
+      "全麦面包或燕麦",
+      "无糖豆浆",
+      "水果"
+    ],
+    "cook_plan": "鸡蛋燕麦/全麦早餐配无糖豆浆",
+    "restaurant_or_takeaway_option": {
+      "place": "宋姐之望江面馆(东山市集店)",
+      "food_to_order": "红烧肉",
+      "estimated_price_cny": "人均约 35",
+      "walk_minutes_from_home": 3,
+      "ordering_keywords": "宋姐之望江面馆(东山市集店) 红烧肉",
+      "copyable_note": "少油，不要香菜；单品价格以店内实时菜单为准。",
+      "data_note": "地点来自授权 Provider；价格以实时菜单或到店为准。"
+    },
+    "recommended_action": "go_to_store_or_restaurant",
+    "ordering_keywords": "宋姐之望江面馆(东山市集店) 红烧肉",
+    "copyable_note": "少油，不要香菜；单品价格以店内实时菜单为准。"
+  },
+  "safety_note": "这是日常饮食建议，不是医疗诊断。如有疾病、孕期、进食障碍风险或特殊饮食限制，应咨询专业人士。"
+}

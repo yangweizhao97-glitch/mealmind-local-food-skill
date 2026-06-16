@@ -17,6 +17,9 @@ description: Use when deciding what a user should eat locally, using a fixed use
 
 每次推荐必须生成：
 
+- 当前中国时间点适合吃什么，以及为什么适合现在这个餐次
+- 到店/外带方案：去哪家店、点什么、预计价格、步行时间、点餐关键词和备注
+- 买菜做饭方案：去哪家超市/便利店、买什么、做成什么饭、预算和原因
 - 今日最佳综合推荐
 - 附近超市今日菜价性价比分析
 - 性价比最高推荐
@@ -159,6 +162,7 @@ goal_match * 0.20
 - `location_summary`
 - `weather_context`
 - `evidence_summary`
+- `current_meal_decision`
 - `restaurant_intelligence`
 - `supermarket_value_context`
 - `top_recommendation`
@@ -171,7 +175,17 @@ goal_match * 0.20
 - `shopping_or_ordering_action`
 - `safety_note`
 
-同时提供一段中文可读总结，包含推荐餐食、推荐分、预计价格、地点、步行/天气理由、适合原因、点餐备注和今天不推荐项。
+demo/automation 成功运行时应把完整 JSON 写入文件。默认路径为 `outputs/latest_meal_decision.json`，也可以用 `MEALMIND_OUTPUT_JSON_PATH` 指定。
+
+其中 `current_meal_decision` 必须回答用户最直接的问题：
+
+- `recommended_food`：今天这个时间点最适合吃什么。
+- `why_this_food_now`：原因，必须同时覆盖当前餐次、身体/心情状态、天气或距离、饮食知识库依据。
+- `restaurant_or_takeaway_option`：可以去哪家店吃或买，点什么，预计价格，步行时间，点餐关键词和可复制备注。
+- `buy_ingredients_and_cook_option`：可以去哪里买菜，买哪些东西，做成什么饭，预计预算，为什么这样配。
+- `recommended_action`：优先建议 `go_to_store_or_restaurant`、`buy_ingredients_and_cook` 或 `need_authorized_place_data`。
+
+同时提供一段中文可读总结，包含推荐餐食、推荐分、预计价格、地点、步行/天气理由、适合原因、买菜做饭方案、点餐备注和今天不推荐项。
 
 ## 安全规则
 

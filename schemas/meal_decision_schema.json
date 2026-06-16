@@ -7,6 +7,7 @@
     "location_summary",
     "weather_context",
     "evidence_summary",
+    "current_meal_decision",
     "restaurant_intelligence",
     "supermarket_value_context",
     "top_recommendation",
@@ -24,6 +25,38 @@
     "location_summary": {"type": "object"},
     "weather_context": {"type": "object"},
     "evidence_summary": {"type": "object"},
+    "current_meal_decision": {
+      "type": "object",
+      "required": [
+        "time_based_question",
+        "timezone",
+        "meal_type",
+        "meal_type_cn",
+        "recommended_food",
+        "why_this_food_now",
+        "restaurant_or_takeaway_option",
+        "buy_ingredients_and_cook_option",
+        "recommended_action",
+        "recommended_action_reason"
+      ],
+      "properties": {
+        "time_based_question": {"type": "string"},
+        "timezone": {"type": "string"},
+        "china_time": {"type": ["string", "null"]},
+        "meal_type": {"type": "string"},
+        "meal_type_cn": {"type": "string"},
+        "recommended_food": {"type": "string"},
+        "why_this_food_now": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "restaurant_or_takeaway_option": {"type": "object"},
+        "buy_ingredients_and_cook_option": {"type": "object"},
+        "recommended_action": {"type": "string"},
+        "recommended_action_reason": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
     "restaurant_intelligence": {"type": "object"},
     "supermarket_value_context": {"type": "object"},
     "top_recommendation": {"type": "object"},

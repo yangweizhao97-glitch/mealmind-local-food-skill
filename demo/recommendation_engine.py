@@ -54,6 +54,16 @@ def _evidence_summary(evidence_rules: dict | None) -> dict:
     }
 
 
+def _meal_type_label(meal_type: str) -> str:
+    return {
+        "breakfast": "早餐",
+        "lunch": "午餐",
+        "snack": "加餐",
+        "dinner": "晚餐",
+        "late_snack": "夜间加餐",
+    }.get(meal_type, meal_type)
+
+
 def _health_explanations(candidate: dict, status: dict, weather_context: dict | None, evidence_rules: dict | None) -> list[str]:
     tags = set(candidate.get("tags", []))
     weather_impacts = set((weather_context or {}).get("meal_impact", []))
@@ -145,6 +155,111 @@ def _restaurant_intelligence(nearby_places: list[dict]) -> dict:
     }
 
 
+def _store_purchase_plan(supermarket_value_context: dict | None, status: dict, top: dict) -> dict:
+    context = supermarket_value_context or {}
+    good_items = context.get("good_value_items") or []
+    store_name = context.get("place_name")
+    stores = context.get("stores") or []
+    if not store_name and stores:
+        store_name = stores[0].get("name")
+
+    meal_type = status.get("meal_type")
+    hunger = status.get("hunger_level", 5)
+    if meal_type == "breakfast":
+        default_items = ["鸡蛋", "全麦面包或燕麦", "无糖豆浆", "水果"]
+        cook_plan = "鸡蛋燕麦/全麦早餐配无糖豆浆"
+    elif meal_type == "snack":
+        default_items = ["无糖酸奶", "香蕉", "坚果小包"]
+        cook_plan = "酸奶水果坚果加餐"
+    elif meal_type == "late_snack":
+        default_items = ["鸡蛋", "青菜", "挂面或小馄饨", "无糖热饮"]
+        cook_plan = "小份青菜鸡蛋汤面"
+    elif hunger >= 7:
+        default_items = ["鸡胸肉或鸡蛋", "青菜", "米饭或玉米", "无糖豆浆"]
+        cook_plan = "鸡蛋/鸡胸肉青菜饭"
+    else:
+        default_items = ["鸡蛋", "豆腐", "青菜", "玉米"]
+        cook_plan = "豆腐青菜鸡蛋轻食碗"
+
+    value_item_names = [item["name"] for item in good_items[:3] if item.get("name")]
+    shopping_list = value_item_names or default_items
+    source_note = (
+        "优先使用超市今日低于参考价的食材。"
+        if value_item_names
+        else "未拿到实时单品菜价，食材清单按通用健康组合生成。"
+    )
+    store_text = store_name or "附近超市/便利店"
+
+    return {
+        "store": store_text,
+        "shopping_list": shopping_list,
+        "cook_plan": cook_plan,
+        "estimated_budget_cny": "15-30",
+        "reason": (
+            f"{source_note} 这个方案保留 {top['meal_name']} 的饱腹/蛋白质思路，"
+            "适合不想外食时自己快速做一餐。"
+        ),
+    }
+
+
+def _build_current_meal_decision(
+    top: dict,
+    status: dict,
+    profile: dict,
+    nearby_places: list[dict],
+    weather_context: dict | None,
+    evidence_rules: dict | None,
+    supermarket_value_context: dict | None,
+) -> dict:
+    meal_type = status["meal_type"]
+    meal_type_cn = _meal_type_label(meal_type)
+    time_context = status.get("time_context", {})
+    walk_minutes = top.get("place_walking_minutes") or _walk_minutes_for(top, nearby_places)
+    weather_summary = (weather_context or {}).get("summary", "未提供天气数据")
+    health_reasons = _health_explanations(top, status, weather_context, evidence_rules)
+    cook_option = _store_purchase_plan(supermarket_value_context, status, top)
+    can_cook = profile.get("lifestyle", {}).get("can_cook")
+    if can_cook is None:
+        can_cook = profile.get("cooking", {}).get("can_cook")
+    if can_cook is None:
+        can_cook = profile.get("can_cook", True)
+
+    action = "go_to_store_or_restaurant"
+    action_reason = "当前综合评分最高的是到店/附近购买方案。"
+    if not (nearby_places and _place_source_summary(nearby_places)["is_live"]):
+        action = "need_authorized_place_data"
+        action_reason = "缺少授权实时地点数据，不能把 fixture 当作真实到店建议。"
+    elif can_cook and status.get("want_save_money"):
+        action = "buy_ingredients_and_cook"
+        action_reason = "你今天有省钱倾向，买菜做饭通常比外食更可控。"
+
+    return {
+        "time_based_question": f"今天这个时间点适合吃什么作为{meal_type_cn}？",
+        "timezone": time_context.get("timezone", "Asia/Shanghai"),
+        "china_time": time_context.get("china_time"),
+        "meal_type": meal_type,
+        "meal_type_cn": meal_type_cn,
+        "recommended_food": top["meal_name"],
+        "why_this_food_now": [
+            f"现在按中国时间判断是{meal_type_cn}，需要匹配这一餐的饱腹和消化负担。",
+            *health_reasons,
+            f"天气情境：{weather_summary}",
+        ],
+        "restaurant_or_takeaway_option": {
+            "place": top["place"],
+            "food_to_order": top["meal_name"],
+            "estimated_price_cny": top["estimated_price_cny"],
+            "walk_minutes_from_home": walk_minutes,
+            "ordering_keywords": top.get("ordering_keywords") or f"{top['place']} {top['meal_name']}",
+            "copyable_note": top.get("copyable_note") or "少油，饮品选无糖。",
+            "data_note": "地点来自授权 Provider；价格以实时菜单或到店为准。",
+        },
+        "buy_ingredients_and_cook_option": cook_option,
+        "recommended_action": action,
+        "recommended_action_reason": action_reason,
+    }
+
+
 def build_recommendation(
     scored_candidates: list[dict],
     profile: dict,
@@ -163,6 +278,15 @@ def build_recommendation(
     not_recommended = _pick(scored_candidates[::-1], lambda c: "sweetened" in c["tags"])
 
     normal_budget = profile["budget_profile"]["normal_meal_budget_cny"]
+    current_meal_decision = _build_current_meal_decision(
+        top,
+        status,
+        profile,
+        nearby_places,
+        weather_context,
+        evidence_rules,
+        supermarket_value_context,
+    )
     result = {
         "user_state_summary": {
             "meal_type": status["meal_type"],
@@ -185,6 +309,7 @@ def build_recommendation(
             "summary": "未提供天气数据，天气权重按中性处理。",
         },
         "evidence_summary": _evidence_summary(evidence_rules),
+        "current_meal_decision": current_meal_decision,
         "restaurant_intelligence": _restaurant_intelligence(nearby_places),
         "supermarket_value_context": supermarket_value_context
         or {
@@ -235,7 +360,10 @@ def build_recommendation(
             },
         ],
         "shopping_or_ordering_action": {
-            "shopping_list": ["鸡胸肉", "西兰花", "玉米", "无糖豆浆"],
+            "shopping_list": current_meal_decision["buy_ingredients_and_cook_option"]["shopping_list"],
+            "cook_plan": current_meal_decision["buy_ingredients_and_cook_option"]["cook_plan"],
+            "restaurant_or_takeaway_option": current_meal_decision["restaurant_or_takeaway_option"],
+            "recommended_action": current_meal_decision["recommended_action"],
             "ordering_keywords": top.get("ordering_keywords") or "饭团 茶叶蛋 无糖豆浆",
             "copyable_note": top.get("copyable_note") or "饮品选无糖，主食正常量或略少。",
         },
@@ -246,16 +374,11 @@ def build_recommendation(
 
 def format_chinese_summary(result: dict) -> str:
     top = result["top_recommendation"]
+    decision = result.get("current_meal_decision", {})
     note = result["shopping_or_ordering_action"]["copyable_note"]
     not_recommended = "、".join(item["name"] for item in result["not_recommended_today"])
     meal_type = result["user_state_summary"]["meal_type"]
-    meal_type_cn = {
-        "breakfast": "早餐",
-        "lunch": "午餐",
-        "snack": "加餐",
-        "dinner": "晚餐",
-        "late_snack": "夜间加餐",
-    }.get(meal_type, meal_type)
+    meal_type_cn = _meal_type_label(meal_type)
     weather = result.get("weather_context", {}).get("summary", "未提供天气数据")
     supermarket_value = result.get("supermarket_value_context", {})
     health_reasons = "\n".join(f"- {reason}" for reason in top.get("health_and_context_reasons", []))
@@ -277,7 +400,8 @@ def format_chinese_summary(result: dict) -> str:
         f"附近超市：{supermarket_value.get('summary', '未提供超市价格数据')}{supermarket_walk_text}\n"
     )
     return (
-        f"今天{meal_type_cn}推荐：{top['meal_name']}\n\n"
+        f"今天这个时间点适合吃：{decision.get('recommended_food', top['meal_name'])}\n"
+        f"自动判断餐次：{meal_type_cn}\n\n"
         f"去哪里：{top['place']}\n"
         f"推荐分：{top['total_score']}/100\n"
         f"预计价格：{top['estimated_price_cny']}\n"
@@ -289,6 +413,10 @@ def format_chinese_summary(result: dict) -> str:
         f"{walk_text}\n"
         f"适合原因：\n{top['reason']}\n\n"
         f"身体和情境理由：\n{health_reasons}\n\n"
+        f"买菜做饭方案：\n"
+        f"去 {decision.get('buy_ingredients_and_cook_option', {}).get('store', '附近超市/便利店')}，"
+        f"买 {'、'.join(decision.get('buy_ingredients_and_cook_option', {}).get('shopping_list', []))}，"
+        f"做 {decision.get('buy_ingredients_and_cook_option', {}).get('cook_plan', '一份均衡简餐')}。\n\n"
         f"点餐备注：\n{note}\n\n"
         f"今天不推荐：\n{not_recommended}。\n\n"
         f"安全提醒：\n{result['safety_note']}"
